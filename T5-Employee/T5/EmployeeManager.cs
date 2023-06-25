@@ -56,9 +56,8 @@ namespace T6
             return loged;
         }
                 
-        // VOID
-        
-        // Module add new a employee
+        // Void        
+        // Module Add new a employee
         public override void AddNew()
         {
                        
@@ -96,7 +95,7 @@ namespace T6
             PrintList(employees);
         }
 
-        // Module update a employee
+        // Module Update a employee
         public override void Update()
         {
             Console.Write("Enter EmpNo or EmpName for update: ");
@@ -120,7 +119,8 @@ namespace T6
             PrintToFile(this.filePath);
             PrintList(employees);            
         }
-        // Module delete a employee
+        
+        // Module Delete a employee
         public override void Delete()
         {
             Console.Write("Enter EmpNo or EmpName for delete: ");
@@ -145,7 +145,7 @@ namespace T6
             PrintList(employees);            
         }
         
-        // Module find employee
+        // Module Find employee
         public override void Find()
         {
             Console.Write("Enter EmpNo or Name: ");
@@ -170,7 +170,7 @@ namespace T6
             }
         }
 
-        // Show list of employee
+        // Module Show List of employee
         private void PrintList(Employee[] arr)
         {
             Console.Clear();
@@ -184,7 +184,7 @@ namespace T6
             Console.WriteLine("---------------------------------");
         }
 
-        // Write to file filePath all data 
+        // Module Write to file filePath all data 
         public void PrintToFile(string filePath)
         {
             string[] content = new string[this.dataGetLength()];
@@ -330,7 +330,7 @@ namespace T6
             } while (selected != 4 && loged);
         }
 
-        // Write log
+        // Module Write log file
         private void WriteLogFile(string content) 
         {
             File.AppendAllTextAsync("T6.log", DateTime.Now + " : " + content + "\n");            
@@ -346,8 +346,7 @@ namespace T6
             return employeeLenght;
         }
 
-        // Check EmpNo valid in data
-
+        // Check empNo valid in data
         private bool isValid(string empNo)
         {
             foreach (Employee emp in employees)
@@ -380,7 +379,7 @@ namespace T6
             return false;
         }
         
-        // Check EmpNo is deleted
+        // Check empNo is deleted
         private bool isDeleted(string empNo)
         {
             bool value = false;
