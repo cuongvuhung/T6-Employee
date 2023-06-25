@@ -1,5 +1,5 @@
 ﻿using System;
-namespace T5
+namespace T6
 {
     public class Employee
     {
@@ -30,6 +30,7 @@ namespace T5
             this.password = password;
             this.isManager = isManager;
         }
+        
         //Getter
         public string GetNo()
         {
@@ -45,7 +46,7 @@ namespace T5
         }
         public bool GetDeleted()
         { 
-            return deleted;
+            return this.deleted;
         }
         public string GetPassword() 
         { 
@@ -55,6 +56,7 @@ namespace T5
         { 
             return isManager;
         }
+        
         //Setter
         public void SetName(string name) 
         { 
@@ -80,11 +82,14 @@ namespace T5
         {
             this.isManager = isManager;
         }
+        
         // ToString for print
         public override string? ToString()
         {
             return no + ", " + name + ", " + email;// + ", " + deleted ;
         }
+        
+        // String for print data for file
         public string? ToStringForFile()
         {
             return no + "," + name + "," + email + "," + deleted + "," + password + "," + isManager ;

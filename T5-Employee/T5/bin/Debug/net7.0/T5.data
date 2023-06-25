@@ -1,5 +1,0 @@
-EmpNo,EmpName,EmpEmail,False,EmpPassword,False
-admin,admin,admin,False,admin,True
-cuongvh,cuongvh,cuongvh,False,cuongvh,True
-user,user,user,False,uesr,True
-1,1,1,False,1,False
