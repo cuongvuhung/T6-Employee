@@ -1,0 +1,4 @@
+EmpNo,EmpName,EmpEmail,False,EmpPassword,False
+admin,admin,admin,False,admin,True
+cuongvh,cuongvh,cuongvh,False,cuongvh,True
+user,user,user,False,user,False
