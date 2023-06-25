@@ -26,7 +26,7 @@ namespace T6
             this.no = no;
             this.name = name;
             this.email = email;
-            this.deleted = false;
+            this.deleted = deleted;
             this.password = password;
             this.isManager = isManager;
         }

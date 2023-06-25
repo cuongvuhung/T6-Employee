@@ -8,10 +8,10 @@ namespace T6
     {
         //Varriable
         private Employee[] employees;
-        private string filePath = @"T6.dat";
+        private readonly string filePath = @"T6.dat";
         private bool loged = false;
-        private string empNoLogin;
-        private string role;
+        private string empNoLogin =" ";
+        private string role =" ";
         
         // Contructor
         public EmployeeManager() : base()
@@ -60,15 +60,14 @@ namespace T6
         // Module Add new a employee
         public override void AddNew()
         {
-                       
             Console.Write("Enter EmpNo:");
-            string empNo = (Console.ReadLine());
+            string empNo = (Console.ReadLine()+"");
             Console.Write("Enter EmpName:");
-            string empName = Console.ReadLine();
+            string empName = (Console.ReadLine() + "");
             Console.Write("Enter EmpEmail:");
-            string empEmail = Console.ReadLine();
+            string empEmail = (Console.ReadLine() + "");
             Console.Write("Enter EmpPassword:");
-            string empPassword = Console.ReadLine();
+            string empPassword = (Console.ReadLine() + "");
             Console.Write("Enter EmpIsManager (True/Any else):");
             bool empIsManager;
             if (Console.ReadLine() == "True")
@@ -81,7 +80,7 @@ namespace T6
             }              
                    
             // Check not duplicate Emp No
-            if (!this.isValid(empNo))
+            if (!this.IsValid(empNo))
             {
                 employees = employees.Concat(new Employee[] { new Employee(empNo, empName, empEmail, false, empPassword, empIsManager) }).ToArray();
                 WriteLogFile(empNoLogin + " add new " + empNo + "," + empName + "," + empEmail);
@@ -99,7 +98,7 @@ namespace T6
         public override void Update()
         {
             Console.Write("Enter EmpNo or EmpName for update: ");
-            string searchKey = Console.ReadLine();
+            string searchKey = (Console.ReadLine() + "");
             foreach (Employee emp in employees)
             {
                 if (((emp.GetNo().Equals(searchKey) || emp.GetName().Equals(searchKey)) && emp.GetDeleted().Equals(false)))
@@ -108,12 +107,12 @@ namespace T6
                     Console.WriteLine(emp.GetNo() + "," + emp.GetName() + "," + emp.GetEmail());
                     Console.WriteLine("Ready for update!");
                     Console.Write ("Enter EmpNo: ");
-                    emp.SetNo (Console.ReadLine());
+                    emp.SetNo ((Console.ReadLine() + ""));
                     Console.Write("Enter EmpName: ");
-                    emp.SetName (Console.ReadLine());
+                    emp.SetName ((Console.ReadLine() + ""));
                     Console.Write("Enter EmpEmail: ");
-                    emp.SetEmail (Console.ReadLine());
-                    WriteLogFile(empNoLogin + " update " + searchKey + "," + emp.GetNo + "," + emp.GetName + "," + emp.GetEmail);                    
+                    emp.SetEmail ((Console.ReadLine() + ""));
+                    WriteLogFile(empNoLogin + " update " + searchKey + "," + emp.GetNo() + "," + emp.GetName() + "," + emp.GetEmail());                    
                 }
             }
             PrintToFile(this.filePath);
@@ -124,7 +123,7 @@ namespace T6
         public override void Delete()
         {
             Console.Write("Enter EmpNo or EmpName for delete: ");
-            String searchKey = Console.ReadLine();
+            String searchKey = (Console.ReadLine() + "");
             foreach (Employee emp in employees)
             {
                 if (emp.GetNo().Equals(searchKey) || emp.GetName().Equals(searchKey))
@@ -133,7 +132,7 @@ namespace T6
                     Console.WriteLine(emp.GetNo() + "," + emp.GetName() + "," + emp.GetEmail());
                     Console.WriteLine("Ready for delete");
                     Console.Write("Yes(Y) or No(any other):");
-                    if (Console.ReadLine().ToUpper() == "Y") 
+                    if ((Console.ReadLine() + "").ToUpper() == "Y") 
                     { 
                         emp.SetDeleted(true);
                         WriteLogFile(empNoLogin + " delete " + searchKey);
@@ -149,9 +148,9 @@ namespace T6
         public override void Find()
         {
             Console.Write("Enter EmpNo or Name: ");
-            String searchKey = Console.ReadLine();
+            String searchKey = (Console.ReadLine() + "");
             // search            
-            Employee[] result = new Employee[this.dataGetLength()];
+            Employee[] result = new Employee[this.GetDataLength()];
             int count = 0;
             foreach (Employee emp in employees)
             {
@@ -171,7 +170,7 @@ namespace T6
         }
 
         // Module Show List of employee
-        private void PrintList(Employee[] arr)
+        public override void PrintList(Employee[] arr)
         {
             Console.Clear();
             foreach (Employee item in arr)
@@ -185,13 +184,13 @@ namespace T6
         }
 
         // Module Write to file filePath all data 
-        public void PrintToFile(string filePath)
+        public override void PrintToFile(string filePath)
         {
-            string[] content = new string[this.dataGetLength()];
+            string[] content = new string[this.GetDataLength()];
             int i = 0;
             foreach (Employee item in employees)
             {
-                content[i++] = item.ToStringForFile();
+                content[i++] = (item.ToStringForFile() + "");
             }
             File.WriteAllLines(filePath, content);
             Console.Write("Data is saved!");
@@ -201,28 +200,28 @@ namespace T6
         // Module Login
         public void Login()
         {
-            string empPassword = "Nopassword";
+            string empPassword;
             Console.WriteLine("***EMPLOYEE MANAGER***");
             Console.WriteLine("***  LOGIN SCREEN  ***");
             do
             {
                 Console.Write("EmpNo:");
-                empNoLogin = Console.ReadLine();
+                empNoLogin = (Console.ReadLine() + "");
                 Console.Write("Password:");
-                empPassword = Console.ReadLine();
-                if (!this.isValid(empNoLogin))
+                empPassword = (Console.ReadLine() + "");
+                if (!this.IsValid(empNoLogin))
                 {
                     Console.WriteLine("Invalid username");
                     Console.ReadLine();
                     continue;
                 }
-                if (!this.isPassword(empNoLogin, empPassword))
+                if (!this.IsPassword(empNoLogin, empPassword))
                 {
                     Console.WriteLine("Wrong password");
                     Console.ReadLine();
                     continue;
                 }
-                if (this.isDeleted(empNoLogin))
+                if (this.IsDeleted(empNoLogin))
                 {
                     Console.WriteLine("Employee deleted!");
                     Console.ReadLine();
@@ -231,8 +230,8 @@ namespace T6
                 this.loged = true;
                 WriteLogFile(empNoLogin + " log in ");
 
-                if (isManager(empNoLogin)) role = "manager";
-                if (!isManager(empNoLogin)) role = "user";
+                if (IsManager(empNoLogin)) role = "manager";
+                if (!IsManager(empNoLogin)) role = "user";
                 Console.WriteLine("Login succesful");
                 Console.ReadLine();
                 Console.Clear();
@@ -331,7 +330,7 @@ namespace T6
         }
 
         // Module Write log file
-        private void WriteLogFile(string content) 
+        private static void WriteLogFile(string content) 
         {
             File.AppendAllTextAsync("T6.log", DateTime.Now + " : " + content + "\n");            
         }
@@ -339,7 +338,7 @@ namespace T6
 
         //Checker
         // Check how much item of data 
-        private int dataGetLength()
+        private int GetDataLength()
         {
             int employeeLenght = 0;
             foreach (Employee emp in employees) employeeLenght++;
@@ -347,7 +346,7 @@ namespace T6
         }
 
         // Check empNo valid in data
-        private bool isValid(string empNo)
+        private bool IsValid(string empNo)
         {
             foreach (Employee emp in employees)
             {
@@ -358,7 +357,7 @@ namespace T6
         }
 
         // Check correct passwword
-        private bool isPassword(string empNo,string empPassword)
+        private bool IsPassword(string empNo,string empPassword)
         {
             foreach (Employee emp in employees)
             {
@@ -369,7 +368,7 @@ namespace T6
         }
 
         // Check user is manager
-        private bool isManager(string empNo)
+        private bool IsManager(string empNo)
         {
             foreach (Employee emp in employees)
             {
@@ -380,7 +379,7 @@ namespace T6
         }
         
         // Check empNo is deleted
-        private bool isDeleted(string empNo)
+        private bool IsDeleted(string empNo)
         {
             bool value = false;
             foreach (Employee emp in employees)

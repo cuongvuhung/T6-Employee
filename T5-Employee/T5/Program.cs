@@ -7,11 +7,11 @@ namespace T6;
 
 class Program
 {
-    static void Main(string[] args)
+    static void Main()
     {
         //Variable
               
-        EmployeeManager manager = new EmployeeManager();
+        EmployeeManager manager = new ();
         //Mainstream
         do
         {
