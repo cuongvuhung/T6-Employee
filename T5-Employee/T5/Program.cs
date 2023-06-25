@@ -9,9 +9,9 @@ class Program
 {
     static void Main()
     {
-        //Variable
-              
+        //Variable            
         EmployeeManager manager = new ();
+
         //Mainstream
         do
         {
